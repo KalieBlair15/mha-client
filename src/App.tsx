@@ -1,26 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import { CharacterList } from "./characters/components/CharacterList";
+import "./App.css";
 
-function App() {
+export const App = () => {
+  const [characters, setCharacters] = useState<any>(null);
+
+  useEffect(() => {
+    async function getCharacters() {
+      const response = await fetch(
+        "https://myheroacademiaapi.com/api/character"
+      );
+      const data = await response.json();
+      console.log(data);
+      setCharacters(data.result);
+    }
+    getCharacters();
+  }, []);
+
+  const isCharacters = characters && characters.length > 0;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app container bg-success p-2 text-dark">
+      {isCharacters && <CharacterList characters={characters} />}
     </div>
   );
-}
-
-export default App;
+};
