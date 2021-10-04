@@ -1,39 +1,32 @@
+import { Character } from "../types";
 import "./styles/CharacterItem.css";
 
-export const CharacterItem: React.FC<any> = (props) => {
-  //   return <div>{props.character.name ?? "Name N/A"}</div>;
+export type CharacterItemProps = {
+  character: Character;
+};
+
+export const CharacterItem: React.FC<CharacterItemProps> = (props) => {
+  const name = props.character.name ?? "N/A";
 
   return (
-    <div className="character-item card">
-      <img src="..." className="card-img-top" alt="..." />
+    <div className="character-item card mx-auto my-3">
+      <img
+        src={props.character.images[1]}
+        className="character-item-img card-img-top"
+        alt="..."
+      />
       <div className="card-body">
-        <h5 className="card-title">Card title</h5>
-        <p className="card-text">
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
+        <h5 className="card-title">{name}</h5>
+        <p className="character-item-description card-text">
+          {props.character.description}
         </p>
-        <a href="#" className="btn btn-primary">
+        <button
+          onClick={() => console.log("clicked...")}
+          className="btn btn-primary"
+        >
           Go somewhere
-        </a>
+        </button>
       </div>
     </div>
   );
-
-  //   return (
-  // <div className="character-item card mx-auto my-3">
-  //   <img src={props.character.images[0]} className="card-img-top" alt="..." />
-  //   <div className="card-body">
-  //     <h5 className="card-title character-item-title">
-  //       {props.character.name ?? "Name N/A"}
-  //     </h5>
-  //     <p className="card-text">
-  //       Some quick example text to build on the card title and make up the
-  //       bulk of the card's content.
-  //     </p>
-  //     <a href="#" className="btn btn-primary">
-  //       Go somewhere
-  //     </a>
-  //   </div>
-  // </div>
-  //   );
 };
